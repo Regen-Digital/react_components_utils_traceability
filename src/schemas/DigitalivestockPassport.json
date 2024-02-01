@@ -1,0 +1,181 @@
+{
+    "schema": {
+        "type": "object",
+        "properties": {
+            "herd": {
+                "type": "object",
+                "title": "Herd Information",
+                "properties": {
+                    "batchId": {
+                        "type": "string",
+                        "title": "Batch ID"
+                    },
+                    "manufacturedDate": {
+                        "type": "string",
+                        "format": "date",
+                        "title": "Manufactured Date"
+                    },
+                    "manufacturedAt": {
+                        "type": "object",
+                        "title": "Manufactured At",
+                        "properties": {
+                            "name": { "type": "string", "title": "Name" },
+                            "operatedBy": {
+                                "type": "object",
+                                "title": "Operated By",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "title": "Name"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "NLIS": {
+                        "title": "NLIS",
+                        "type": "string",
+                        "uniqueItems": true,
+                        "enum": ["NH020188LEJ00005", "NH020188LEJ00008", "NH020188LEJ00012"]
+                    },
+                    "batchQrCode": {
+                        "type": "string",
+                        "title": "Batch QR Code"
+                    },
+                    "traceabilityInfo": {
+                        "type": "array",
+                        "title": "Traceability Information",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "EventReference": {
+                                    "type": "string",
+                                    "title": "Event Reference"
+                                },
+                                "EventType": {
+                                    "type": "string",
+                                    "title": "Event Type"
+                                }
+                            }
+                        }
+                    },
+                    "sustainabilityInfo": {
+                        "type": "array",
+                        "title": "Sustainability Information",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "Topic": {
+                                    "type": "string",
+                                    "title": "Topic"
+                                },
+                                "Evidence": {
+                                    "type": "string",
+                                    "title": "Evidence"
+                                },
+                                "metric": {
+                                    "type": "array",
+                                    "title": "Metric",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "Metric": {
+                                                "type": "string",
+                                                "title": "Metric"
+                                            },
+                                            "Value": {
+                                                "type": "integer",
+                                                "title": "Value"
+                                            },
+                                            "Unit": {
+                                                "type": "string",
+                                                "title": "Unit"
+                                            }
+                                        }
+                                    }
+                                },
+                                "compliance": {
+                                    "type": "boolean",
+                                    "title": "Compliance"
+                                }
+                            }
+                        }
+                    },
+                    "provenance": {
+                        "type": "array",
+                        "title": "Provenance",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "country": {
+                                    "type": "string",
+                                    "title": "Country"
+                                },
+                                "percentage": {
+                                    "type": "integer",
+                                    "title": "Percentage"
+                                }
+                            }
+                        }
+                    }
+                },
+                "required": ["NLIS"]
+            },
+            "breed": {
+                "type": "object",
+                "title": "Breed",
+                "properties": {
+                    "productId": {
+                        "type": "string",
+                        "title": "Product ID"
+                    },
+                    "breed": {
+                        "type": "string",
+                        "title": "Breed"
+                    },
+                    "manufacturer": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "title": "Name"
+                            }
+                        }
+                    },
+                    "image": {
+                        "type": "string",
+                        "title": "Image"
+                    },
+                    "description": {
+                        "type": "string",
+                        "title": "Description"
+                    },
+                    "productClass": {
+                        "type": "string",
+                        "title": "Product Class"
+                    }
+                }
+            },
+            "sustainabilityScore": {
+                "type": "integer",
+                "title": "Sustainability Score"
+            },
+            "trustScore": {
+                "type": "integer",
+                "title": "Trust Score"
+            }
+        }
+    },
+    "data": {
+        "herd": {
+            "batchId": ""
+        }
+    },
+    "context": ["https://dpp-json-ld.s3.ap-southeast-2.amazonaws.com/dlpld2.json"],
+    "render": [
+        {
+            "template": "<div style='width: 400px; padding: 20px; background-color: #e3eff2'> <div style='text-align: center; margin-bottom: 20px; font-weight: bold'> <span>Ag</span><span style='color: #15728d'>Trace</span> </div> <div style='display: flex; justify-content: space-between'> <div style='color: #4a8326; text-align: center; flex: 1'> <p style='font-weight: bold'> {{credentialSubject.sustainabilityScore}}% </p> Sustainability <br /> Score </div> <img src='{{credentialSubject.breed.image}}' style='border-radius: 50%; height: 100px; width: 100px; flex: 1' /> <div style='color: #b02229; text-align: center; flex: 1'> <p style='font-weight: bold'>{{credentialSubject.trustScore}}%</p> Confidence <br /> Level </div> </div> <div style=' background-color: white; border-radius: 8px; padding: 16px; margin-top: 32px; ' > <div style=' text-align: left; font-weight: bold; padding-top: 6px; padding-bottom: 6px; ' > Livestock Information </div> <table style='border-spacing: 5px'> <tr style='border-bottom: 1px solid #e3eff2'> <td style='padding-top: 6px; padding-bottom: 6px; color: #2b2d2e'> Producer </td> <td style='text-align: end; color: #778180'> {{credentialSubject.herd.manufacturedAt.operatedBy.name}} </td> </tr> <tr style='border-bottom: 1px solid #e3eff2'> <td style='padding-top: 6px; padding-bottom: 6px; color: #2b2d2e'> Breed </td> <td style='text-align: end; color: #778180'> {{credentialSubject.breed.breed}} </td> </tr> <tr style='border-bottom: 1px solid #e3eff2'> <td style='padding-top: 6px; padding-bottom: 6px; color: #2b2d2e'> NLISID </td> <td style='text-align: end; color: #778180'> {{credentialSubject.herd.NLIS}} </td> </tr> <tr style='border-bottom: 1px solid #e3eff2'> <td style='padding-top: 6px; padding-bottom: 6px; color: #2b2d2e'> DOB </td> <td style='text-align: end; color: #778180'> {{credentialSubject.herd.manufacturedDate}} </td> </tr> <tr style='border-bottom: 1px solid #e3eff2'> <td style='padding-top: 6px; padding-bottom: 6px; color: #2b2d2e'> Description </td> <td style='text-align: end; color: #778180'> {{credentialSubject.breed.description}} </td> </tr> </table> </div> <div style=' background-color: white; border-radius: 8px; padding: 16px; margin-top: 32px; ' > <div style=' text-align: left; font-weight: bold; padding-top: 6px; padding-bottom: 6px; ' > Origin Information </div> <div style='display: flex; margin-top: 8px; flex-direction: row'> <div style='flex: 1'> {{#each credentialSubject.herd.provenance}} <div style='display: flex; align-items: center'> <div style='font-weight: bold; color: #161618'> {{this.country}} </div> <div style='margin-left: 16px'>{{this.percentage}}%</div> </div> {{/each}} </div> </div> </div> <div style=' background-color: white; border-radius: 8px; padding: 16px; margin-top: 32px; ' > <div style=' text-align: left; font-weight: bold; padding-top: 6px; padding-bottom: 6px; ' > Sustainability Information </div> {{#each credentialSubject.herd.sustainabilityInfo}} <div style='display: flex; margin-top: 8px; flex-direction: row'> <div style='flex: 1'> <div style='display: flex; align-items: center'> <div style='font-weight: bold; color: #161618'>{{this.Topic}}:</div> <div style='margin-left: 16px'> {{this.metric.0.Value}}&nbsp{{this.metric.0.Unit}} </div> </div> <div style='display: flex; align-items: center'> <div style='font-weight: bold; color: #161618'>Evidence:</div> <div style='margin-left: 16px'> <a href='{{this.Evidence}}'>Link</a> </div> </div> </div> </div> {{/each}} </div> <div style=' background-color: white; border-radius: 8px; padding: 16px; margin-top: 32px; ' > <div style=' text-align: left; font-weight: bold; padding-top: 6px; padding-bottom: 6px; ' > Traceability Information </div> {{#each credentialSubject.herd.traceabilityInfo}} <div style='display: flex; margin-top: 8px; flex-direction: row'> <div style='flex: 1'> <div style='display: flex; align-items: center'> <div style='font-weight: bold; color: #161618'>Event:</div> <div style='margin-left: 16px'> <a href='{{this.EventReference}}'>Link</a> </div> </div> <div style='display: flex; align-items: center'> <div style='font-weight: bold; color: #161618'>Event Type:</div> <div style='margin-left: 16px'> {{this.EventType}} </div> </div> </div> </div> {{/each}} </div></div>",
+            "@type": "WebRenderingTemplate2022"
+        }
+    ]
+}

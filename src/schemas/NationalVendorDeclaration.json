@@ -1,0 +1,27 @@
+{
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sender": {
+        "type": "string",
+        "enum": [" farms-NH020188"]
+      },
+      "receiver": {
+        "type": "string",
+        "enum": [" processors-QBZZ2222"]
+      },
+      "livestockIds": {
+        "type": "array",
+        "title": "Livestock IDs",
+        "uniqueItems": true,
+        "items": {
+          "type": "string",
+          "enum": ["NH020188LEJ00005", "NH020188LEJ00008", "NH020188LEJ00012"]
+        }
+      }
+    },
+    "required": ["sender", "receiver", "livestockIds"]
+  },
+  "data": {},
+  "context": ["https://dpp-json-ld.s3.ap-southeast-2.amazonaws.com/envdld.json"]
+}
