@@ -10,6 +10,7 @@ export declare enum BucketName {
  * Uploads a json file to S3 storage.
  *
  * @param filename
+ * @param bucket
  * @param json
  * @returns link to the uploaded json file
  *
@@ -18,8 +19,8 @@ export declare enum BucketName {
  *  "name": "John",
  *  "age": 30,
  * }
- * const url = await uploadJson('test', json);
+ * const url = await uploadJson('test', 'my-bucket', json);
  * // Returns: https://storage.com/test.json
  */
-export declare const uploadJson: (filename: string, bucket: BucketName, json: Json) => Promise<string>;
+export declare const uploadJson: (filename: string, bucket: string, json: Json) => Promise<string>;
 export {};

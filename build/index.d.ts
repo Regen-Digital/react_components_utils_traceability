@@ -364,6 +364,7 @@ declare enum BucketName {
  * Uploads a json file to S3 storage.
  *
  * @param filename
+ * @param bucket
  * @param json
  * @returns link to the uploaded json file
  *
@@ -372,10 +373,10 @@ declare enum BucketName {
  *  "name": "John",
  *  "age": 30,
  * }
- * const url = await uploadJson('test', json);
+ * const url = await uploadJson('test', 'my-bucket', json);
  * // Returns: https://storage.com/test.json
  */
-declare const uploadJson: (filename: string, bucket: BucketName, json: Json) => Promise<string>;
+declare const uploadJson: (filename: string, bucket: string, json: Json) => Promise<string>;
 
 /**
  * integrate with vckit to issue vc with default context and type
